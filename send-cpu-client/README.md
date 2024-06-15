@@ -13,10 +13,10 @@ go build .
 go build .
 sudo cp ./send-cpu-usage /usr/loca/bin/
 sudo cp systemd/send-cpu-usage.service /etc/systemd/system/
-sudo systemd daemon-reload
-sudo systemd enable send-cpu-usage.service
-sudo systemd start send-cpu-usage.service
-sudo systemd status send-cpu-usage.service
+sudo systemctl daemon-reload
+sudo systemctl enable send-cpu-usage.service
+sudo systemctl start send-cpu-usage.service
+sudo systemctl status send-cpu-usage.service
 ```
 
 送られていないようであれば、`ExecStart`に記述する引数に`-v`を追加してログを確認してください。
