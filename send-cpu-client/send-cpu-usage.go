@@ -21,7 +21,8 @@ type Usage struct {
 }
 
 type SendData struct {
-	Value int `json:"value"`
+	Cpu int `json:"cpu"`
+	Mem int `json:"mem"`
 }
 
 var isVerbose bool
@@ -58,7 +59,7 @@ func getUsage() (Usage, error) {
 }
 
 func postUsage(u Usage) error {
-	data := SendData{Value: int(u.cpu)}
+	data := SendData{Cpu: int(u.cpu), Mem: int(u.memory)}
 
 	buf := bytes.NewBuffer(nil)
 	err := json.NewEncoder(buf).Encode(&data)
@@ -70,7 +71,7 @@ func postUsage(u Usage) error {
 		log.Printf("request %s", serverHost)
 	}
 
-	req, err := http.NewRequest("POST", serverHost, buf)
+	req, err := http.NewRequest("POST", serverHost+"/values", buf)
 	if err != nil {
 		return err
 	}
