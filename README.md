@@ -10,6 +10,13 @@
 
 回路図: [PDF](./semantics/analog-cpu-meter.pdf) [Kicanvas](https://kicanvas.org/?github=https%3A%2F%2Fgithub.com%2F74th%2Fanalog-cpu-meter%2Fblob%2Fmain%2Fsemantics%2Fanalog-cpu-meter.kicad_sch)
 
+## このリポジトリに含まれているもの
+
+- [ESP32-C3 の WebServer ファームウェア ./esp32-c3-server/](./esp32-c3-server/)
+- [CPU 使用率を HTTP で送るプログラム ./send-cpu-client/](./send-cpu-client/)
+- [回路図 ./semantics/](./semantics/)
+- [アナログメーター用パネルデザインファイル ./material/meter_pannel.inkscape.svg](./material/meter_pannel.inkscape.svg)
+
 ## ESP32-C3-Server Firmware
 
 [./esp32-c3-server/](./esp32-c3-server/)
@@ -73,3 +80,11 @@ Request Body:
 CPU 使用率を送るクライアント。Go 言語で実装。
 
 [./send-cpu-client/](./send-cpu-client/)
+
+## 電圧計
+
+こちらの電圧計の 3V モデルを使いました
+
+https://ja.aliexpress.com/item/1005006415730772.html
+
+パネルのデザインファイル [./material/meter_pannel.inkscape.svg](./material/meter_pannel.inkscape.svg)
