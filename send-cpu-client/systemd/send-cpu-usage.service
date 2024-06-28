@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=nnyn
 Group=nnyn
-ExecStart=/usr/local/bin/send-cpu-usage -h http://192.168.1.105 -i 1000ms
+ExecStart=/usr/local/bin/send-cpu-usage -h http://192.168.1.105 -i 1000ms -s
 ExecStop=/bin/kill ${MAINPID}
 Restart=always
 

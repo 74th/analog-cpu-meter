@@ -25,6 +25,7 @@ type SendData struct {
 	Mem int `json:"mem"`
 }
 
+var isSilent bool
 var isVerbose bool
 var serverHost string
 var interval time.Duration
@@ -96,6 +97,7 @@ func postUsage(u Usage) error {
 
 func main() {
 	flag.BoolVar(&isVerbose, "v", false, "verbose")
+	flag.BoolVar(&isSilent, "s", false, "silent")
 	flag.StringVar(&serverHost, "h", "", "server host")
 	flag.DurationVar(&interval, "i", time.Second, "interval")
 	flag.Parse()
@@ -109,13 +111,13 @@ func main() {
 		time.Sleep(interval)
 
 		usage, err := getUsage()
-		if err != nil {
+		if err != nil && !isSilent {
 			log.Printf("getUsageError: %s", err)
 			continue
 		}
 
 		err = postUsage(usage)
-		if err != nil {
+		if err != nil && !isSilent {
 			log.Printf("postUsageError: %s", err)
 			continue
 		}
