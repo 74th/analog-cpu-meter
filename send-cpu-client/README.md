@@ -11,7 +11,7 @@ go build .
 
 ```
 go build .
-sudo cp ./send-cpu-usage /usr/loca/bin/
+sudo cp ./send-cpu-usage /usr/local/bin/
 sudo cp systemd/send-cpu-usage.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable send-cpu-usage.service
