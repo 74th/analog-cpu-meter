@@ -8,6 +8,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	_ "net/http/pprof"
 	"os"
 	"time"
 
@@ -28,6 +29,7 @@ type SendData struct {
 var isSilent bool
 var isVerbose bool
 var serverHost string
+var pprofAddr string
 var interval time.Duration
 
 func getUsage() (Usage, error) {
@@ -81,6 +83,7 @@ func postUsage(u Usage) error {
 	if err != nil {
 		return err
 	}
+	defer res.Body.Close()
 
 	if res.StatusCode != 200 {
 		resBody, _ := io.ReadAll(res.Body)
@@ -99,12 +102,19 @@ func main() {
 	flag.BoolVar(&isVerbose, "v", false, "verbose")
 	flag.BoolVar(&isSilent, "s", false, "silent")
 	flag.StringVar(&serverHost, "h", "", "server host")
+	flag.StringVar(&pprofAddr, "pprof", "", "prprof addr")
 	flag.DurationVar(&interval, "i", time.Second, "interval")
 	flag.Parse()
 
 	if serverHost == "" {
 		fmt.Printf("usage -h <server host>\n")
 		os.Exit(1)
+	}
+
+	if pprofAddr != "" {
+		go func() {
+			log.Println(http.ListenAndServe(pprofAddr, nil))
+		}()
 	}
 
 	for {
